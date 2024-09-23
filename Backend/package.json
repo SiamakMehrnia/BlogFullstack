@@ -1,12 +1,12 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js"
+    "dev": "node -r dotenv/config --watch server.js",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -16,5 +16,9 @@
     "express": "^4.21.0",
     "nodemon": "^3.1.7",
     "pg": "^8.13.0"
+  },
+  "description": "",
+  "devDependencies": {
+    "dotenv": "^16.4.5"
   }
 }
