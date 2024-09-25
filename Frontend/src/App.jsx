@@ -1,19 +1,17 @@
-import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./Pages/Home/Home";
+import Post from "./Pages/Post/Post"
 
-
-
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path='/' element={<MainLayout />}>
-      <Route path='/' element={<Home />} />
-      <Route path='/post' element={<Post />} />
-      <Route path='/post/:id' element={<PostDetail />} />
-    </Route>
-  )
-);
 function App() {
-
-  return <RouterProvider router={router} />;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/post" element={<Post />} />
+        <Route path="/post/:id" element={<Post />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
