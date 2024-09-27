@@ -1,25 +1,26 @@
 import pool from "../db/server.js";
+import ErrorResponse from "../utils/ErrorResponse.js";
 
-const getPosts = async (req, res) => {
+const getPosts = async (req, res, next) => {
   try {
     const results = await pool.query("SELECT * FROM posts");
     res.status(200).json(results.rows);
-  } catch {
-    res.status(500).json({ message: `Error fetching posts: ${error}` });
+  } catch (error) {
+    next(new ErrorResponse(`Error fetching posts: ${error.message}`, 500));
   }
 };
 
-const getPostByID = async (req, res) => {
+const getPostByID = async (req, res, next) => {
   try {
     const { id } = req.params;
     const results = await pool.query("SELECT * FROM posts WHERE id=$1", [id]);
     res.status(200).json(results.rows);
-  } catch {
-    res.status(500).json({ message: `Error fetching posts: ${error}` });
+  } catch (error) {
+    next(new ErrorResponse(`Error fetching post: ${error.message}`, 500));
   }
 };
 
-const createPost = async (req, res) => {
+const createPost = async (req, res, next) => {
   try {
     const { title, author, content, cover } = req.body;
 
@@ -29,11 +30,11 @@ const createPost = async (req, res) => {
     );
     res.status(201).json(results.rows[0]);
   } catch (error) {
-    res.status(500).json({ message: `Error creating posts: ${error}` });
+    next(new ErrorResponse(`Error creating post: ${error.message}`, 500));
   }
 };
 
-const updatePost = async (req, res) => {
+const updatePost = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { title, author, content, cover } = req.body;
@@ -44,13 +45,11 @@ const updatePost = async (req, res) => {
     );
     res.status(200).json(results.rows[0]);
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: `Error fetching post by id ${id}: ${error}` });
+    next(new ErrorResponse(`Error update post: ${error.message}`, 500));
   }
 };
 
-const deletePost = async (req, res) => {
+const deletePost = async (req, res, next) => {
   try {
     const { id } = req.params;
 
@@ -58,11 +57,9 @@ const deletePost = async (req, res) => {
       "DELETE FROM posts WHERE id=$1 RETURNING *",
       [id]
     );
-    res.status(200).json({ message: `Post with the id ${id} was deleted.` });
+    res.status(200).json({ message: `Post was deleted.` });
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: `Error deleting post by id ${id}: ${error}` });
+    next(new ErrorResponse(`Error deleting post: ${error.message}`, 500));
   }
 };
 
