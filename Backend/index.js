@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import blogRouter from "./routes/blogRoutes.js";
+import errorHandler from "./middleware/errorHandler.js";
 
 const app = express();
 const PORT = 8000;
@@ -15,5 +16,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use("/posts", blogRouter);
+
+app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`Server is running on port:${PORT}`));
