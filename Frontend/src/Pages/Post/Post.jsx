@@ -3,9 +3,11 @@ import NavBar from "../../Components/Navbar/NavBar";
 import "./Post.css";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const Post = () => {
   const [form, setForm] = useState({});
+  const navigate=useNavigate()
   const resatFormData = () => {
     setForm({
       author: "",
@@ -16,9 +18,9 @@ const Post = () => {
     });
   };
   const addArticleHandler=()=>{
-    axios.post("localhost:8000",form)
+    axios.post("https://blogfullstack-ok4a.onrender.com/posts",form)
     .then((response)=>{
-        if(response.status==200){
+        if(response.status==201){
             Swal.fire({
                 title: "Article Added",
                 text: "Article Added Successfully",
@@ -27,6 +29,7 @@ const Post = () => {
                 timer:2000,
                 showConfirmButton:false,
             })
+            navigate("/")
         }
     })
     .catch((error)=>{
@@ -38,6 +41,10 @@ const Post = () => {
             timer:2000,
             showConfirmButton:false,
         })
+             .catch((error) => {
+        setError("Daten konnten nicht geladen werden");
+        setLoading(false);
+      });
   })
   resatFormData
 }
@@ -48,7 +55,7 @@ const Post = () => {
   return (
     <>
       <NavBar />
-      <div className="max-w-2xl m-auto py-4">
+      <div className="max-w-2xl m-auto py-4 text-gray-900">
         <div className="flex flex-col py-4">
           <label className="my-4">
             <b>Author</b>
@@ -58,12 +65,12 @@ const Post = () => {
             onChange={formHandler}
             value={form.author}
             type="text"
-            placeholder="type author name"
-            className="input input-bordered input-md w-full max-w-xs"
+            placeholder=""
+            className="input input-bordered input-md w-full max-w-xs text-gray-900"
           />
         </div>
 
-        <div className="flex flex-col py-4">
+        <div className="flex flex-col py-4 text-gray-900">
           <label className="my-4">
             <b>Title</b>
           </label>
@@ -73,11 +80,11 @@ const Post = () => {
             value={form.title}
             type="text"
             placeholder=""
-            className="input input-bordered input-md w-full max-w-xs"
+            className="input input-bordered input-md w-full max-w-xs text-gray-900"
           />
         </div>
 
-        <div className="flex flex-col py-4">
+        <div className="flex flex-col py-4 text-gray-900 ">
           <label className="my-4">
             <b>Content</b>
           </label>
@@ -87,34 +94,34 @@ const Post = () => {
             value={form.content}
             type="text"
             placeholder=""
-            className="input input-bordered input-md w-full max-w-xs"
+            className="input input-bordered input-md w-full max-w-xs text-gray-900"
           />
         </div>
 
-        <div className="flex flex-col py-4">
-          <label className="my-4">Cover</label>
+        <div className="flex flex-col py-4 text-gray-900">
+          <label className="my-4"><b>Image</b></label>
           <input
             name="cover"
             onChange={formHandler}
             value={form.cover}
             type="text"
             placeholder=""
-            className="input input-bordered input-md w-full max-w-xs"
+            className="input input-bordered input-md w-full max-w-xs text-gray-900"
           />
         </div>
 
-        <div className="flex flex-col py-4">
-          <label className="my-4">Date</label>
+        <div className="flex flex-col py-4 text-gray-900">
+          <label className="my-4"><b>Data</b></label>
           <input
             name="data"
             onChange={formHandler}
             value={form.data}
             type="data"
             placeholder=""
-            className="input input-bordered input-md w-full max-w-xs"
+            className="input input-bordered input-md w-full max-w-xs text-gray-900"
           />
         </div>
-        <button onClick={addArticleHandler} className="btn">Add Bloge</button>
+        <button onClick={addArticleHandler} className="btn text-gray-900">Add Bloge</button>
       </div>
     </>
   );

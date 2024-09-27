@@ -1,21 +1,27 @@
+import { Link } from "react-router-dom"
+import "./PostCard.css"
 
-const PostCard = () => {
+const PostCard = (props) => {
     return (
         <>
-        <div className="card lg:card-side bg-base-100 shadow-xl m-5">
+        <div className="card">
+
+        <div className="card lg:card-side bg-gray-200 shadow-xl m-5  h-76 text-gray-900 max-w-96">
   <figure>
-    <img
-      src="https://img.daisyui.com/images/stock/photo-1494232410401-ad00d5433cfa.webp"
-      alt="Album" />
+    <img className="object-fill w-96 h-72 "
+      src={props.cover}/>
   </figure>
   <div className="card-body">
-    <h2 className="card-title">New album is released!</h2>
-    <p>Click the button to listen on Spotiwhy app.</p>
+    <h2 className="card-title">{props.title}</h2>
+    <p>{props.author}</p>
     <div className="card-actions justify-end">
-      <button className="btn btn-primary">Listen</button>
+      <Link to={`/postCard/${props.id}`}>
+      <button className="btn btn-primary">More</button>
+      </Link>
     </div>
   </div>
 </div>
+      </div>
         
         </>
     )
