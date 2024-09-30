@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./Pages/Home/Home";
 import Post from "./Pages/Post/Post"
 import PostCardP from "./Pages/postCard/PostCardP";
-import PostEdit from "./Pages/postEdit/postEdit";
+import PostEdit from "./Pages/PostEdit/PostEdit";
 
 
 function App() {

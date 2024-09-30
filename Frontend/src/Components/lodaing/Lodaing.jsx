@@ -3,7 +3,7 @@ const Lodaing = () => {
   return (
     <>
       <section>
-        <div class="loader">
+        <div className="loader">
           <span className="--i:1;"></span>
           <span className="--i:2;"></span>
           <span className="--i:3;"></span>
